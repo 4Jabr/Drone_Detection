@@ -3,7 +3,7 @@ import sys
 import cv2
 import numpy as np
 import logging
-import threading # RICHARD ADDED CODE (for cont. serial monitoring)
+import threading
 
 # from camera_manager import RealSenseCamera
 from yolo_detector import YOLODetector
@@ -103,10 +103,10 @@ class SerialConnection:
     
     def close(self):
         if self.ser:
-            self.running = False # RICHARD ADDED CODE
+            self.running = False
             self.ser.close()
 
-    # RICHARD ADDED CODE
+    
     def _read_serial(self):
         """Continuously read and print incoming data from ESP32."""
         while getattr(self, "running", False) and self.ser:
@@ -117,7 +117,6 @@ class SerialConnection:
             except Exception:
                 pass
             time.sleep(0.001)  # minimal delay to prevent CPU hogging
-    # END RICHARD ADDED CODE
 
 def select_best_detection(detections):
     """
